@@ -19,7 +19,7 @@ class ADBScreencapPlugin extends ScreenshotArtifactPlugin {
 
       async start() {
         const content = await adb.shell(deviceId, 'dumpsys window windows');
-        if (content && content.indexOf('has stopped') !== -1) {
+        if (content && content.indexOf('Application Error: com.google.android.play.games') !== -1) {
           await adb._sendKeyEvent(deviceId, 61);
           await adb._sendKeyEvent(deviceId, 66);
         }
