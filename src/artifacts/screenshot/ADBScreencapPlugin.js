@@ -18,6 +18,11 @@ class ADBScreencapPlugin extends ScreenshotArtifactPlugin {
       name: 'ADBScreencapRecording',
 
       async start() {
+        const content = await adb.shell(deviceId, 'dumpsys window windows');
+        if (content && content.indexOf('has stopped') !== -1) {
+          await adb._sendKeyEvent(deviceId, 61);
+          await adb._sendKeyEvent(deviceId, 66);
+        }
         await adb.screencap(deviceId, pathToScreenshotOnDevice);
       },
 
